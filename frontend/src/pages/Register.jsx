@@ -1,17 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
-	const addVendor = e => {
+	useEffect(() => {
+		const token = localStorage.getItem("MM-USER-TOKEN");
+		if (token) {
+			navigate("/");
+		}
+	}, []);
+
+	const addVendor = async e => {
 		e.preventDefault();
 		let vObj = {
 			name: name,
 			email: email,
 			password: password,
 		};
+		let response = await (
+			await fetch("http://127.0.0.1:8000/apis/register/", {
+				method: "POST",
+				body: JSON.stringify({
+					...vObj,
+				}),
+			})
+		).json();
+		if (response.error == "no") {
+			localStorage.setItem("MM-USER-TOKEN", JSON.stringify(response.token));
+			navigate("/");
+		}
 
 		setEmail("");
 		setName("");

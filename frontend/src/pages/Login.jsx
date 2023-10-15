@@ -1,13 +1,36 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 
 function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
-	const handleSubmit = e => {
+	useEffect(() => {
+		const token = localStorage.getItem("MM-USER-TOKEN");
+		if (token) {
+			navigate("/");
+		}
+	}, []);
+
+	const handleSubmit = async e => {
 		e.preventDefault();
+
+		let response = await (
+			await fetch("http://127.0.0.1:8000/apis/login/", {
+				method: "POST",
+				body: JSON.stringify({
+					email,
+					password,
+				}),
+			})
+		).json();
+		if (response.error == "no") {
+			localStorage.setItem("MM-USER-TOKEN", JSON.stringify(response.token));
+			navigate("/");
+		}
 	};
+
 	return (
 		<div className="h-full w-full flex justify-center items-center flex-col">
 			<div className="h-full w-[320px] sm:h-[380px] sm:w-[250px] md:h-[380px] md:w-[350px] lg:h-[400px] lg:w-[380px] sm:shadow-2xl  ">
