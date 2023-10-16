@@ -27,6 +27,7 @@ function Login() {
 		).json();
 		if (response.error == "no") {
 			localStorage.setItem("MM-USER-TOKEN", JSON.stringify(response.token));
+			localStorage.setItem("MM-USER-ID", JSON.stringify(response.data.id));
 			navigate("/");
 		}
 	};
