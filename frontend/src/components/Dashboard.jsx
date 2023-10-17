@@ -18,31 +18,29 @@ function Dashboard() {
 	};
 
 	return (
-		<div className="h-full">
-			<div className="h-[15%] shadow-xl border-b-2 flex items-center justify-between ">
-				<div className="w-[30%] h-full  flex items-center space-x-2 p-5 ">
-					<Link to="sales">
-						<button
-							className={`${
-								window.location.href.includes("sales")
-									? "bg-blue-500"
-									: "bg-blue-800"
-							} h-8 p-2 flex justify-center items-center rounded-lg text-white`}
-						>
-							Transactions
-						</button>
-					</Link>
-				</div>
-				<div className="w-[30%] h-full flex items-center justify-end p-5 ">
+		<div className="h-full w-full bg-green-500">
+			{/* navbar */}
+			<div className="h-[15%] w-full flex justify-between items-center p-4 bg-orange-500 ">
+				<Link to="sales">
 					<button
-						onClick={removeToken}
-						className="h-8 w-20 bg-blue-800 rounded-lg text-white"
+						className={`${
+							window.location.href.includes("sales")
+								? "bg-blue-500"
+								: "bg-blue-800"
+						} h-8 p-2 flex justify-center items-center rounded-lg text-white`}
 					>
-						LOGOUT
+						Transactions
 					</button>
-				</div>
+				</Link>
+				<button
+					onClick={removeToken}
+					className="h-8 w-20 bg-blue-800 rounded-lg text-white"
+				>
+					LOGOUT
+				</button>
 			</div>
-			<div className="h-[85%] p-5">
+			{/* outlet for product and transactions */}
+			<div className="h-[85%]	overflow-y-scroll scrollbar-hide ">
 				<Outlet />
 			</div>
 		</div>

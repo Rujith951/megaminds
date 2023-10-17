@@ -22,11 +22,11 @@ function Sales() {
 	};
 
 	return (
-		<div>
+		<div className="flex flex-col items-center space-y-3 p-2 sm:grid sm:grid-cols-2 sm:pl-6 sm:gap-2 lg:grid lg:grid-cols-3 2xl:grid-cols-4 ">
 			{transactions.map(itm => (
 				<div
 					key={itm.id}
-					className="h-[160px] w-[250px] shadow-2xl p-4 space-y-3"
+					className="h-[160px] inline-block bg-orange-700 w-[280px] shadow-2xl p-4 space-y-3 rounded-md sm:0"
 				>
 					<p className="text-sm">product_name : {itm.product_id.pname}</p>
 					<p className="text-sm">
